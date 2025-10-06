@@ -1,0 +1,7 @@
+{
+  "name": "catalogo_juegos",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
