@@ -11,6 +11,10 @@ const routes: Routes = [
     redirectTo: 'home',
     pathMatch: 'full'
   },
+  {
+    path: 'my-videogames',
+    loadChildren: () => import('./my-videogames/my-videogames.module').then( m => m.MyVideogamesPageModule)
+  },
 ];
 
 @NgModule({
