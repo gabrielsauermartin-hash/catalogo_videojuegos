@@ -14,7 +14,15 @@
   </ion-header>
 
   <div id="container">
-    <strong>Ready to create an app?</strong>
-    <p>Start with Ionic <a target="_blank" rel="noopener noreferrer" href="https://ionicframework.com/docs/components">UI Components</a></p>
+    <h1 class="title">Title: {{title}}</h1>
+    <p>Genre: {{genre}}</p>
+    <p>Developer: {{developer}}</p>
+    <p>Price: {{price}}</p>
+    <p>Description: {{description}}</p>
+    <p>Requirements: {{requirements}}</p>
   </div>
+
+  <ion-button expand="block" (click)="goToMyVideogames()">
+    Enseñar videojuegos
+  </ion-button>
 </ion-content>

@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-home',
@@ -8,6 +9,17 @@ import { Component } from '@angular/core';
 })
 export class HomePage {
 
-  constructor() {}
+  title: string = "Clair Obscur Expedition 33";
+  genre: string = "RPG por turnos";
+  developer: string = "SandFall Interactive";
+  price: Number = 49.99
+  description: string = "eee";
+  requirements: string = "qqq";
+
+  constructor(private router: Router) {}
+
+  goToMyVideogames(){
+    this.router.navigateByUrl("/my-videogames");
+  }
 
 }

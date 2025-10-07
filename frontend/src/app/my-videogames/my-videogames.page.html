@@ -4,6 +4,31 @@
   </ion-toolbar>
 </ion-header>
 
+<ion-content>
+  <ion-list>
+    <ion-item *ngFor="let v of videogames">
+      <ion-label>
+        <h1>{{v.title}}</h1>
+        <p>{{v.genre}}</p>
+        <p>{{v.developer}}</p>
+        <p>{{v.price}}</p>
+        <p>{{v.description}}</p>
+        <p>{{v.requirements}}</p>
+        <ion-buttons slot="end">
+          <ion-button (click)="gotToEditVideogame(v.id)">Editar</ion-button>
+          <ion-button (click)="deleteVideogame(v.id)">Borrar</ion-button>
+        </ion-buttons>
+      </ion-label>
+    </ion-item>
+    <ion-button expand="block" color="primary" (click)="goToAddVideogame()">
+      Agregar videojuego
+    </ion-button>
+    <ion-button expand="block" color="primary" (click)="goHome()">
+      Regresar
+    </ion-button>
+  </ion-list>
+</ion-content>
+<!--
 <ion-content [fullscreen]="true">
   <ion-header collapse="condense">
     <ion-toolbar>
@@ -11,3 +36,4 @@
     </ion-toolbar>
   </ion-header>
 </ion-content>
+-->
