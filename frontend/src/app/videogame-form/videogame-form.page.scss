@@ -1,0 +1,23 @@
+form {
+    padding: 1rem;
+    
+}
+
+ion-content {
+    --background: url('../../assets/videogame-form_background.jpg') no-repeat center center / cover fixed;
+
+}
+
+ion-item {
+    margin-bottom: 0.8rem;
+}
+
+ion-note[color="danger"] {
+    font-size: 0.9em;
+    margin-top: -0.5rem;
+    margin-bottom: 0.5rem;
+}
+
+ion-button {
+    margin-top: 1rem;
+}

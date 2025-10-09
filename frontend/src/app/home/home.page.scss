@@ -1,3 +1,47 @@
+.home-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 2rem;
+
+}
+
+ion-content {
+  --background: url('../../assets/home_background_1.jpg') no-repeat center center / cover fixed;
+}
+
+ion-card {
+  width: 100%;
+  max-width: 400px;
+  margin-bottom: 2rem;
+}
+
+.price {
+  color: #3880ff;
+  font-weight: bold;
+  font-size: 1.2em;
+  margin: 0.5rem 0;
+}
+
+.desc {
+  margin-top: 1rem;
+  color: #222;
+}
+
+.req {
+  color: #666;
+  font-size: 0.95em;
+  display: flex;
+  align-items: center;
+}
+
+ion-chip {
+  margin-bottom: 0.5rem;
+}
+
+
+
+/*
 #container {
   text-align: center;
 
@@ -29,3 +73,4 @@
 .title {
   color: red;
 }
+*/

@@ -1,5 +1,43 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
+    <ion-title>Mis Videojuegos</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-list>
+    <ion-card *ngFor="let v of videogames">
+      <ion-card-header>
+        <ion-card-title>{{ v.title }}</ion-card-title>
+        <ion-card-subtitle>{{ v.developer }}</ion-card-subtitle>
+      </ion-card-header>
+      <ion-card-content>
+        <ion-chip color="secondary">{{ v.genre }}</ion-chip>
+        <p class="price">{{ v.price | currency:'USD' }}</p>
+        <p>{{ v.description }}</p>
+        <p>{{ v.requirements }}</p>
+        <ion-buttons>
+          <ion-button fill="outline" color="primary" (click)="gotToEditVideogame(v.id)">
+            <ion-icon slot="start" name="create-outline"></ion-icon>Editar
+          </ion-button>
+          <ion-button fill="outline" color="danger" (click)="deleteVideogame(v.id)">
+            <ion-icon slot="start" name="trash-outline"></ion-icon>Borrar
+          </ion-button>
+        </ion-buttons>
+      </ion-card-content>
+    </ion-card>
+  </ion-list>
+  <div class="actions">
+    <ion-button expand="block" color="success" (click)="goToAddVideogame()">Agregar videojuego</ion-button>
+    <ion-button expand="block" color="medium" (click)="goHome()">Regresar</ion-button>
+  </div>
+</ion-content>
+
+
+
+<!--
+<ion-header [translucent]="true">
+  <ion-toolbar>
     <ion-title>my-videogames</ion-title>
   </ion-toolbar>
 </ion-header>
@@ -27,13 +65,5 @@
       Regresar
     </ion-button>
   </ion-list>
-</ion-content>
-<!--
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">my-videogames</ion-title>
-    </ion-toolbar>
-  </ion-header>
 </ion-content>
 -->
