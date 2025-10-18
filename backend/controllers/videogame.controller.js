@@ -2,6 +2,8 @@ const { where } = require("sequelize");
 const db = require("../models");
 const Videogame = db.videogames;
 const Op = db.Sequelize.Op;
+const fs = require("fs");
+const path = require("path");
 
 //Create and Save a new videogame
 exports.create = (req, res) => {
@@ -30,7 +32,8 @@ exports.create = (req, res) => {
         developer: req.body.developer,
         price: req.body.price,
         description: req.body.description,
-        requirements: req.body.requirements
+        requirements: req.body.requirements,
+        filename: req.file ? req.file.filename : ""
     };
 
     //Save videogame in the database
@@ -82,7 +85,7 @@ exports.findOne = (req, res) => {
 };
 
 //Update a videogame by the id in the request
-exports.update = (req, res) => {
+exports.update = async (req, res) => {
     const id = req.params.id;
 
     //Verifies the body of the request is not empty
@@ -92,6 +95,30 @@ exports.update = (req, res) => {
         });
     }
 
+    try {
+        const videogame = await Videogame.findByPk(id);
+        if (!videogame) {
+            return res.status(404).send({ message: `Videogame with id=${id} not found`});
+        }
+
+        // If there is a new file, it deletes the old one
+        if (req.file) {
+            if (videogame.filename) {
+                const oldpath = path.join(__dirname, '../public/images', videogame.filename);
+                fs.unlink(oldpath, (err) => {
+                    if (err) console.error('Error deleting old image: ', err);
+                });
+            }
+            req.body.filename = req.file.filename; // save a new name
+        }
+
+        await Videogame.update(req.body, { where: { id } });
+        res.send({ message: "Videogame updated succesfully"});
+    } catch (err) {
+        res.status(500).send({ message: `Error updating videogame with id=${id}`});
+    }
+
+    /*
     Videogame.update(req.body, {
         where: { id: id }
     })
@@ -111,6 +138,7 @@ exports.update = (req, res) => {
             message: `Error updating videogame with id=${id}`
         });
     });
+    */
 };
 
 //Delete a videogame with the specified id in the request

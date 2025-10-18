@@ -17,6 +17,9 @@ module.exports = (sequelize, Sequelize) => {
         },
         requirements: {
             type: Sequelize.STRING
+        },
+        filename: {
+            type: Sequelize.STRING
         }
     });
 
