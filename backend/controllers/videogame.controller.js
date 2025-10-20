@@ -9,11 +9,11 @@ const path = require("path");
 exports.create = (req, res) => {
     //Validate request
     if (!req.body.title || !req.body.genre || !req.body.developer ||
-    !req.body.price || !req.body.description || !req.body.requirements) {
-    res.status(400).send({
-        message: "All fields must be provided!"
-    });
-    return;
+        !req.body.price || !req.body.description || !req.body.requirements) {
+        res.status(400).send({
+            message: "All fields must be provided!"
+        });
+        return;
     }
 
     /*
@@ -89,7 +89,7 @@ exports.update = async (req, res) => {
     const id = req.params.id;
 
     //Verifies the body of the request is not empty
-    if (!req.body || Object.keys(req.body).length === 0){
+    if (!req.body || Object.keys(req.body).length === 0) {
         return res.status(400).send({
             message: "Request body cannot be empty!"
         });
@@ -98,7 +98,7 @@ exports.update = async (req, res) => {
     try {
         const videogame = await Videogame.findByPk(id);
         if (!videogame) {
-            return res.status(404).send({ message: `Videogame with id=${id} not found`});
+            return res.status(404).send({ message: `Videogame with id=${id} not found` });
         }
 
         // If there is a new file, it deletes the old one
@@ -113,9 +113,9 @@ exports.update = async (req, res) => {
         }
 
         await Videogame.update(req.body, { where: { id } });
-        res.send({ message: "Videogame updated succesfully"});
+        res.send({ message: "Videogame updated succesfully" });
     } catch (err) {
-        res.status(500).send({ message: `Error updating videogame with id=${id}`});
+        res.status(500).send({ message: `Error updating videogame with id=${id}` });
     }
 
     /*
@@ -142,9 +142,29 @@ exports.update = async (req, res) => {
 };
 
 //Delete a videogame with the specified id in the request
-exports.delete = (req, res) => {
+exports.delete = async (req, res) => {
     const id = req.params.id;
 
+    try {
+        const videogame = await Videogame.findByPk(id);
+        if (!videogame) {
+            return res.status(404).send({ message: "Videogame not found" });
+        }
+
+        if (videogame.filename) {
+            const filePath = path.join(__dirname, '../public/images', videogame.filename);
+            fs.unlink(filePath, (err) => {
+                if (err) console.error('Error deleting image file:', err);
+            });
+        }
+
+        await Videogame.destroy({ where: { id } });
+        res.send({ message: "Videogame deleted successfully" });
+    } catch (error) {
+        res.status(500).send({ message: error.message });
+    }
+
+    /*
     Videogame.destroy({
         where: { id: id }
     })
@@ -164,4 +184,5 @@ exports.delete = (req, res) => {
             message: `Could not delete videogame with id=${id}`
         });
     });
+    */
 };

@@ -21,3 +21,18 @@ ion-note[color="danger"] {
 ion-button {
     margin-top: 1rem;
 }
+
+ion-col {
+  text-align: center;
+}
+
+.photo-frame {
+  margin: 5vw;
+  border: black solid 1px;
+  width: 40vw;
+  border-radius: .25em;
+}
+
+.error {
+  color: red;
+}

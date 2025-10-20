@@ -4,13 +4,13 @@ var path = require('path');
 
 const app = express();
 
-//public directory
-app.use(express.static(path.join(__dirname, 'public')));
-
 var corsOptions = {
     origin: "http://localhost:8100"
 };
 app.use(cors(corsOptions));
+
+//public directory
+app.use(express.static(path.join(__dirname, 'public')));
 
 app.use(express.json());
 
@@ -21,9 +21,11 @@ const db = require("./models");
 //db.sequelize.sync();
 
 //Drop and re-sync database
+
 db.sequelize.sync({ force: true }).then(() => {
     console.log("Drop and re-sync db.");
 });
+
 
 //Simple route example
 app.get("/", (req, res) => {

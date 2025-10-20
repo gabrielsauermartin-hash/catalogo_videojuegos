@@ -1,5 +1,10 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button (click)="goHome()">
+        <ion-icon name="arrow-back-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
     <ion-title>Mis Videojuegos</ion-title>
   </ion-toolbar>
 </ion-header>
@@ -7,6 +12,7 @@
 <ion-content>
   <ion-list>
     <ion-card *ngFor="let v of videogames">
+      <img *ngIf="v.filename" src="http://localhost:8080/images/{{v.filename}}" alt="image_portada" />
       <ion-card-header>
         <ion-card-title>{{ v.title }}</ion-card-title>
         <ion-card-subtitle>{{ v.developer }}</ion-card-subtitle>
@@ -14,7 +20,9 @@
       <ion-card-content>
         <ion-chip color="secondary">{{ v.genre }}</ion-chip>
         <p class="price">{{ v.price | currency:'USD' }}</p>
+        <p>Descripción: </p>
         <p>{{ v.description }}</p>
+        <p>Requisitos: </p>
         <p>{{ v.requirements }}</p>
         <ion-buttons>
           <ion-button fill="outline" color="primary" (click)="gotToEditVideogame(v.id)">
@@ -27,12 +35,13 @@
       </ion-card-content>
     </ion-card>
   </ion-list>
-  <div class="actions">
-    <ion-button expand="block" color="success" (click)="goToAddVideogame()">Agregar videojuego</ion-button>
-    <ion-button expand="block" color="medium" (click)="goHome()">Regresar</ion-button>
-  </div>
-</ion-content>
 
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+    <ion-fab-button (click)="goToAddVideogame()">
+      <ion-icon name="add-outline"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+</ion-content>
 
 
 <!--
@@ -67,3 +76,10 @@
   </ion-list>
 </ion-content>
 -->
+
+<!--
+  <div class="actions">
+    <ion-button expand="block" color="success" (click)="goToAddVideogame()">Agregar videojuego</ion-button>
+    <ion-button expand="block" color="medium" (click)="goHome()">Regresar</ion-button>
+  </div>
+  -->
