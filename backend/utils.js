@@ -8,7 +8,7 @@ function generateToken(user) {
     var u = {
         id: user.id,
         name: user.name,
-        username: username.name,
+        username: user.name,
         isAdmin: user.isAdmin,
         password: user.password
     };

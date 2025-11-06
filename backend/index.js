@@ -28,16 +28,6 @@ app.use((req, res, next) => {
   next();
 });
 
-
-// parse application/x-www-form-urlencoded
-//app.use(bodyParser.urlencoded({ extended: true }));
-
-//public directory
-app.use(express.static(path.join(__dirname, 'public')));
-
-require('./routes/user.routes.js')(app);
-require('./routes/videogame.routes.js')(app);
-
 //middleware that checks if JWT token exists and verifies it if it does exist.
 //In all future routes, this helps to know if the request is authenticated or not.
 app.use(function (req, res, next) {
@@ -72,6 +62,17 @@ app.use(function (req, res, next) {
     }
   });
 });
+
+// parse application/x-www-form-urlencoded
+//app.use(bodyParser.urlencoded({ extended: true }));
+
+//public directory
+app.use(express.static(path.join(__dirname, 'public')));
+
+require('./routes/user.routes.js')(app);
+require('./routes/videogame.routes.js')(app);
+
+
 
 const db = require("./models");
 //Like this, doesn't delete database data

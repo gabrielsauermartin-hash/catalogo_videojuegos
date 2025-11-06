@@ -6,28 +6,36 @@ const bcrypt = require('bcryptjs');
 
 //create and save a new user
 exports.create = (req, res) => {
-    console.log(req.body);
-    //validate request
-    if (!req.body.password || !req.body.username) {
-        res.status(400).send({
-            message: "Content can not be empty"
-        });
-        return;
+    const username = req.body.username;
+    const password = req.body.password;
+    const name = req.body.name;
+    const isAdmin = req.body.isAdmin ? req.body.isAdmin : false;
+
+    // Validar que username y password existen
+    if (!username) {
+        return res.status(400).send({ message: "username is not defined" });
     }
+    if (!password) {
+        return res.status(400).send({ message: "password is not defined" });
+    }
+
+    console.log(req.body);
 
     //create a user
     let user = {
-        password: req.body.password,
-        name: req.body.name,
-        username: req.body.username,
-        isAdmin: req.body.isAdmin ? req.body.isAdmin : false
+        username: username,
+        password: password,
+        name: name,
+        isAdmin: isAdmin
     };
 
     User.findOne({ where: { username: user.username } })
         .then(data => {
             if (data) {
                 const result = bcrypt.compareSync(user.password, data.password);
-                if (!result) return res.status(401).send('Password not valid');
+                if (!result) {
+                    return res.status(401).send('Password not valid');
+                }
                 const token = utils.generateToken(data);
                 //get basic user details
                 const userObj = utils.getCleanUser(data);
@@ -60,6 +68,7 @@ exports.create = (req, res) => {
             });
         });
 };
+
 
 //retrieve all users from the database
 exports.findAll = (req, res) => {
