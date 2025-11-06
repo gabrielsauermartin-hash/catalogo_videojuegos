@@ -1,23 +1,24 @@
 module.exports = app => {
     const videogames = require("../controllers/videogame.controller.js");
+    const auth = require("../controllers/auth.js");
     var upload = require('../multer/upload');
 
     var router = require("express").Router();
 
     //Create a new videogame
-    router.post("/", upload.single('file'), videogames.create);
+    router.post("/",auth.isAuthenticated, upload.single('file'), videogames.create);
 
     //Retrieve all videogames
-    router.get("/", videogames.findAll);
+    router.get("/", auth.isAuthenticated, videogames.findAll);
 
     //Retrieve a single videogame with id
-    router.get("/:id", videogames.findOne);
+    router.get("/:id", auth.isAuthenticated, videogames.findOne);
 
     //Update a videogame with id
-    router.put("/:id", upload.single('file'), videogames.update);
+    router.put("/:id", auth.isAuthenticated, upload.single('file'), videogames.update);
 
     //Delete a videogame with id
-    router.delete("/:id", videogames.delete);
+    router.delete("/:id", auth.isAuthenticated, videogames.delete);
 
     app.use('/api/videogames', router);
 }
