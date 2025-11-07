@@ -3,7 +3,7 @@ const utils = require('../utils');
 const bcrypt = require('bcryptjs');
 
 const db = require("../models");
-const User = db.user;
+const User = db.User;
 
 exports.signin = (req, res) => {
     const user = req.body.username;
@@ -54,7 +54,7 @@ exports.isAuthenticated = (req, res, next) => {
             message: "Invalid token"
         });
 
-        User.findByPK(user.id)
+        User.findByPk(user.id)
             .then(data => {
                 //return 401 status if the userId does not match
                 if(!user.id){
