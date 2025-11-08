@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+import { AuthService } from '../auth/auth.service';
 
 @Component({
   selector: 'app-home',
@@ -16,10 +17,26 @@ export class HomePage {
   description: string = "eee";
   requirements: string = "qqq";
 
-  constructor(private router: Router) {}
+  constructor(
+    private router: Router,
+    private authService: AuthService
+  ) {}
 
+  loginOrJustEnter(){
+    this.authService.isLoggedIn().then(loggedIn => {
+
+      if(loggedIn){
+        this.router.navigateByUrl("/my-videogames");
+        return;
+      } 
+      this.router.navigateByUrl("/login");
+    })
+  }
+
+  /*
   goToMyVideogames(){
     this.router.navigateByUrl("/my-videogames");
   }
+  */
 
 }

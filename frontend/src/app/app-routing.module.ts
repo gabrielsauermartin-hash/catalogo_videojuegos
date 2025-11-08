@@ -19,6 +19,14 @@ const routes: Routes = [
     path: 'videogame-form',
     loadChildren: () => import('./videogame-form/videogame-form.module').then( m => m.VideogameFormPageModule)
   },
+  {
+    path: 'login',
+    loadChildren: () => import('./auth/login/login.module').then( m => m.LoginPageModule)
+  },
+  {
+    path: 'register',
+    loadChildren: () => import('./auth/register/register.module').then( m => m.RegisterPageModule)
+  },
 ];
 
 @NgModule({

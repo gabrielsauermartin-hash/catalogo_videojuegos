@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { VideogameService } from '../services/videogame-service';
 import { Router } from '@angular/router';
 import { AlertController } from '@ionic/angular';
+import { AuthService } from '../auth/auth.service';
+import { Storage } from '@ionic/storage-angular';
 
 @Component({
   selector: 'app-my-videogames',
@@ -17,7 +19,9 @@ export class MyVideogamesPage implements OnInit {
 
   constructor(private videogameService: VideogameService, 
     private router: Router, 
-    private alertCtrl: AlertController) { }
+    private alertCtrl: AlertController, 
+    private authService: AuthService, 
+    private storage: Storage) { }
 
   ngOnInit() {
     this.getAllVideogames();
@@ -28,11 +32,28 @@ export class MyVideogamesPage implements OnInit {
     this.getAllVideogames();
   }
 
+  async getAllVideogames(){
+    let token = await this.storage.get("token");
+    this.videogameService.getAllVideogames(token).subscribe({
+      next: res => {
+        console.log("User logged in. This is the videogames list:");
+        console.log(res);
+        this.videogames = res;
+      }, error: error => {
+        console.log(error);
+        console.log("User not authenticated. Please log in");
+        this.router.navigateByUrl("/home")
+      }
+    })
+  }
+
+  /*
   getAllVideogames(){
     this.videogameService.getAllVideogames().subscribe(response => {
       this.videogames = response;
     });
   }
+    */
 
   async deleteVideogame(id: any){
     const alert = await this.alertCtrl.create({
@@ -75,6 +96,12 @@ export class MyVideogamesPage implements OnInit {
 
   goHome(){
     this.router.navigate(['/home']);
+  }
+
+  logout() {
+    this.authService.logout().then(() => {
+      this.router.navigateByUrl("/home");
+    });
   }
 
 }

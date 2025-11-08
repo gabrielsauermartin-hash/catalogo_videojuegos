@@ -8,12 +8,36 @@ import { Observable } from 'rxjs';
 export class VideogameService {
 
   endpoint = 'http://localhost:8080/api/videogames';
+  AUTH_SERVER_ADDRESS:  string  =  'http://localhost:4000';
 
   constructor (private httpClient: HttpClient) {}
+
+  private getOptions(token: string){
+
+    let bearerAccess = 'Bearer ' + token;
+
+    let options = {
+      headers: {
+        'Authorization' : bearerAccess,
+        // 'Content-Type' : 'application/x-www-form-urlencoded',
+      }
+      //, withCredentials: true
+    };
+
+    return options;
+  }
   
+  getAllVideogames(token: string){
+    let myOptions = this.getOptions(token);
+    console.log(myOptions)
+    return this.httpClient.get(`${this.AUTH_SERVER_ADDRESS}/api/videogames`, myOptions);
+  }
+
+  /*
   getAllVideogames(){
     return this.httpClient.get(this.endpoint);
   }
+  */
 
   create(videogame: any, blob: any){
 

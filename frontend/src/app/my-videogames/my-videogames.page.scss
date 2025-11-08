@@ -4,12 +4,12 @@ ion-list {
 
 ion-content {
     --background: url('../../assets/my-videogames_background.jpg') no-repeat center center / cover fixed;
-    --padding-bottom: 4.5rem; 
+    --padding-bottom: 4.5rem;
 }
 
 ion-card {
     margin-bottom: 1.5rem;
-    
+
 }
 
 ion-card-title {
@@ -29,4 +29,34 @@ ion-buttons {
 
 .actions {
     margin: 2rem 1rem;
+}
+
+
+
+#container {
+    text-align: center;
+
+    left: 0;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    margin: 1rem 0;
+}
+
+#container strong {
+    font-size: 20px;
+    line-height: 26px;
+}
+
+#container p {
+    font-size: 16px;
+    line-height: 22px;
+
+    color: #8c8c8c;
+
+    margin: 0;
+}
+
+#container a {
+    text-decoration: none;
 }
