@@ -56,6 +56,7 @@ export class MyVideogamesPage implements OnInit {
     */
 
   async deleteVideogame(id: any){
+    const token = await this.storage.get("token");
     const alert = await this.alertCtrl.create({
       header: '¿Estás seguro?',
       message: '¿Deseas borrar este videojuego?',
@@ -63,7 +64,7 @@ export class MyVideogamesPage implements OnInit {
         { text: 'Cancelar', role: 'cancel' },
         {text: 'Borrar',
           handler: () => {
-            this.videogameService.delete(id).subscribe(() => {
+            this.videogameService.delete(id, token).subscribe(() => {
               this.getAllVideogames();
             });
           }
@@ -81,15 +82,17 @@ export class MyVideogamesPage implements OnInit {
     this.router.navigate(['/videogame-form']);
   }
 
-  updateVideogame(id: any, updatedData: any){
+  async updateVideogame(id: any, updatedData: any){
     // updatedData is an object with the new data of the videogame
-    this.videogameService.update(id, updatedData).subscribe(response => {
+    const token = await this.storage.get("token");
+    this.videogameService.update(id, updatedData, token).subscribe(response => {
       this.getAllVideogames();
     });
   }
 
-  getOneVideogame(id: any){
-    this.videogameService.findOne(id).subscribe(response => {
+  async getOneVideogame(id: any){
+    const token = await this.storage.get("token");
+    this.videogameService.findOne(id, token).subscribe(response => {
       this.selectedVideogame = response;
     });
   }

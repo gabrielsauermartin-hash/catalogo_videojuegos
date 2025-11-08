@@ -4,6 +4,7 @@ import { VideogameService } from '../services/videogame-service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { PhotoService } from '../services/photo.service';
 import { AlertController } from '@ionic/angular';
+import { Storage } from '@ionic/storage-angular';
 
 
 @Component({
@@ -26,7 +27,8 @@ export class VideogameFormPage implements OnInit {
     private router: Router,
     private activatedRoute: ActivatedRoute,
     private photoService: PhotoService,
-    private alertController: AlertController
+    private alertController: AlertController,
+    private storage: Storage
   ) {
     this.videogameForm = this.formBuilder.group({
       title: ['', Validators.required],
@@ -47,7 +49,40 @@ export class VideogameFormPage implements OnInit {
     this.isAddMode = !this.id;
 
     if (!this.isAddMode && this.id) {
-      this.videogameService.findOne(this.id).subscribe(videogame => {
+      this.storage.get("token").then(token => {
+        this.videogameService.findOne(this.id, token).subscribe(videogame => {
+          this.videogameService.findOne(this.id, token).subscribe(videogame => {
+            //Load the existing videogame in the form
+            this.videogameForm.patchValue({
+              title: videogame.title,
+              genre: videogame.genre,
+              developer: videogame.developer,
+              price: videogame.price,
+              description: videogame.description,
+              requirements: videogame.requirements,
+              filename: videogame.filename
+            });
+
+            // Asigns the complete URL of the image into the capturedPhoto field
+
+
+            if (videogame.filename) {
+              this.capturedPhoto = `http://localhost:8080/images/${videogame.filename}`;
+              // Adjusts this URL to the real path where the image is in the backend
+            } else {
+              this.videogameForm.reset();
+              this.capturedPhoto = '';
+            }
+
+          });
+        })
+      })
+    }
+
+    /*
+    if (!this.isAddMode && this.id) {
+
+      this.videogameService.findOne(this.id, token).subscribe(videogame => {
         //Load the existing videogame in the form
         this.videogameForm.patchValue({
           title: videogame.title,
@@ -72,6 +107,7 @@ export class VideogameFormPage implements OnInit {
         
       });
     } 
+    */
   }
 
   getFormControl(field: string) {
@@ -121,7 +157,7 @@ export class VideogameFormPage implements OnInit {
     formData.append("title", this.videogameForm.get('title')?.value),
       formData.append("genre", this.videogameForm.get('genre')?.value),
       formData.append("developer", this.videogameForm.get('developer')?.value),
-      formData.append("price", this.videogameForm.get('price')?.value),
+      formData.append("price", this.videogameForm.get('price')?.value.toString()),
       formData.append("description", this.videogameForm.get('description')?.value),
       formData.append("requirements", this.videogameForm.get('requirements')?.value)
 
@@ -131,7 +167,8 @@ export class VideogameFormPage implements OnInit {
       formData.append("file", blob);
     }
 
-    this.videogameService.update(this.id!, formData).subscribe(data => {
+    const token = await this.storage.get("token");
+    this.videogameService.update(this.id!, formData, token).subscribe(data => {
       console.log('Videogame updated succesfully!');
       this.router.navigateByUrl('/my-videogames');
     });
@@ -158,7 +195,8 @@ export class VideogameFormPage implements OnInit {
         blob = await response.blob();
       }
 
-      this.videogameService.create(this.videogameForm.value, blob).subscribe(data => {
+      const token = await this.storage.get("token");
+      this.videogameService.create(this.videogameForm.value, blob, token).subscribe(data => {
         console.log("Photo sent!");
         this.router.navigateByUrl("/my-videogames");
       })

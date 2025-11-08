@@ -12,7 +12,7 @@
 <ion-content>
   <ion-list>
     <ion-card *ngFor="let v of videogames">
-      <img *ngIf="v.filename" src="http://localhost:8080/images/{{v.filename}}" alt="image_portada" />
+      <img *ngIf="v.filename" src="http://localhost:4000/images/{{v.filename}}" alt="image_portada" />
       <ion-card-header>
         <ion-card-title>{{ v.title }}</ion-card-title>
         <ion-card-subtitle>{{ v.developer }}</ion-card-subtitle>

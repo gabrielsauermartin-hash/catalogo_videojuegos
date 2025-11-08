@@ -7,8 +7,8 @@ import { Observable } from 'rxjs';
 })
 export class VideogameService {
 
-  endpoint = 'http://localhost:8080/api/videogames';
-  AUTH_SERVER_ADDRESS:  string  =  'http://localhost:4000';
+  //endpoint = 'http://localhost:8080/api/videogames';
+  AUTH_SERVER_ADDRESS:  string  =  'http://localhost:4000/api/videogames';
 
   constructor (private httpClient: HttpClient) {}
 
@@ -17,10 +17,10 @@ export class VideogameService {
     let bearerAccess = 'Bearer ' + token;
 
     let options = {
-      headers: {
+      headers: new HttpHeaders({
         'Authorization' : bearerAccess,
         // 'Content-Type' : 'application/x-www-form-urlencoded',
-      }
+      })
       //, withCredentials: true
     };
 
@@ -30,7 +30,8 @@ export class VideogameService {
   getAllVideogames(token: string){
     let myOptions = this.getOptions(token);
     console.log(myOptions)
-    return this.httpClient.get(`${this.AUTH_SERVER_ADDRESS}/api/videogames`, myOptions);
+    return this.httpClient.get(this.AUTH_SERVER_ADDRESS, myOptions);
+    //return this.httpClient.get(`${this.AUTH_SERVER_ADDRESS}/api/videogames`, myOptions);
   }
 
   /*
@@ -39,7 +40,7 @@ export class VideogameService {
   }
   */
 
-  create(videogame: any, blob: any){
+  create(videogame: any, blob: any, token: string): Observable<any> {
 
     /*
     const headers = new HttpHeaders({
@@ -49,13 +50,18 @@ export class VideogameService {
 
     let formData = new FormData();
 
-    formData.append("title", videogame.title),
-    formData.append("genre", videogame.genre),
-    formData.append("developer", videogame.developer),
-    formData.append("price", videogame.price),
-    formData.append("description", videogame.description),
-    formData.append("requirements", videogame.requirements),
-    formData.append("file", blob);
+    formData.append("title", videogame.title);
+    formData.append("genre", videogame.genre);
+    formData.append("developer", videogame.developer);
+    formData.append("price", videogame.price.toString());
+    formData.append("description", videogame.description);
+    formData.append("requirements", videogame.requirements);
+
+    if(blob){
+      formData.append("file", blob);
+    }
+    
+    //formData.append("file", blob);
 
     /*
     const body = new URLSearchParams();
@@ -67,13 +73,13 @@ export class VideogameService {
     body.append("requirements", videogame.requirements);
     */
 
-    return this.httpClient.post(this.endpoint, formData);
+    return this.httpClient.post(this.AUTH_SERVER_ADDRESS, formData, this.getOptions(token));
     //return this.httpClient.post(this.endpoint, body.toString(), { headers });
   }
 
   //Delete a videogame by an ID
-  delete(id: any): Observable<any>{
-    return this.httpClient.delete(`${this.endpoint}/${id}`);
+  delete(id: any, token: string): Observable<any>{
+    return this.httpClient.delete(`${this.AUTH_SERVER_ADDRESS}/${id}`, this.getOptions(token));
   }
 
   /*
@@ -84,13 +90,13 @@ export class VideogameService {
   */
 
   //Update a videogame by an ID
-  update(id: any, formData: FormData): Observable<any> {
-    return this.httpClient.put(`${this.endpoint}/${id}`, formData);
+  update(id: any, formData: FormData, token: string): Observable<any> {
+    return this.httpClient.put(`${this.AUTH_SERVER_ADDRESS}/${id}`, formData, this.getOptions(token));
   }
 
   //Search one videogame by an ID
-  findOne(id: any): Observable<any> {
+  findOne(id: any, token: string): Observable<any> {
     //Requests a videogame with an specific ID
-    return this.httpClient.get(`${this.endpoint}/${id}`);
+    return this.httpClient.get(`${this.AUTH_SERVER_ADDRESS}/${id}`, this.getOptions(token));
   }
 }
