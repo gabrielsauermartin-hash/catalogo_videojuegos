@@ -99,4 +99,9 @@ export class VideogameService {
     //Requests a videogame with an specific ID
     return this.httpClient.get(`${this.AUTH_SERVER_ADDRESS}/${id}`, this.getOptions(token));
   }
+
+  //Shows the list of the logged in user
+  getVideogamesByUser(token: string) {
+    return this.httpClient.get(`${this.AUTH_SERVER_ADDRESS}/my-videogames`, this.getOptions(token));
+  }
 }

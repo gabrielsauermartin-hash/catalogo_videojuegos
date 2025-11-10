@@ -1,13 +1,13 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
-    <ion-title>videogame-form</ion-title>
+    <ion-title>Formulario de videojuego</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
   <ion-header collapse="condense">
     <ion-toolbar>
-      <ion-title size="large">videogame-form</ion-title>
+      <ion-title size="large">Formulario de videojuego</ion-title>
     </ion-toolbar>
   </ion-header>
 
@@ -21,15 +21,15 @@
       <ion-col size="6">
         <ion-button color="primary" fill="outline" (click)="takePhoto()">
           <ion-icon slot="start" name="camera-outline"></ion-icon>
-          Take a photo
+          Tomar foto
         </ion-button>
         <ion-button color="primary" fill="outline" (click)="pickImage()">
           <ion-icon slot="start" name="image-outline"></ion-icon>
-          Pick an image
+          Escoger imagen
         </ion-button>
         <ion-button color="danger" fill="outline" (click)="discardImage()">
           <ion-icon slot="start" name="aperture"></ion-icon>
-          Discard image
+          Descartar imagen
         </ion-button>
       </ion-col>
     </ion-row>
@@ -37,7 +37,7 @@
   
   <form [formGroup]="videogameForm" (ngSubmit)="onSubmit()">
     <ion-item>
-      <ion-label position="floating">Title</ion-label>
+      <ion-label position="floating">Título</ion-label>
       <ion-input formControlName="title" type="text"></ion-input>
     </ion-item>
     <ion-note color="danger" *ngIf="getFormControl('title')?.hasError('required') && getFormControl('title')?.touched">
@@ -45,7 +45,7 @@
     </ion-note>
 
     <ion-item>
-      <ion-label position="floating">Genre</ion-label>
+      <ion-label position="floating">Género</ion-label>
       <ion-input formControlName="genre" type="text"></ion-input>
     </ion-item>
     <ion-note color="danger" *ngIf="getFormControl('genre')?.hasError('required') && getFormControl('genre')?.touched">
@@ -53,7 +53,7 @@
     </ion-note>
 
     <ion-item>
-      <ion-label position="floating">Developer</ion-label>
+      <ion-label position="floating">Desarrollador</ion-label>
       <ion-input formControlName="developer" type="text"></ion-input>
     </ion-item>
     <ion-note color="danger" *ngIf="getFormControl('developer')?.hasError('required') && getFormControl('developer')?.touched">
@@ -61,7 +61,7 @@
     </ion-note>
 
     <ion-item>
-      <ion-label position="floating">Price</ion-label>
+      <ion-label position="floating">Precio</ion-label>
       <ion-input formControlName="price" type="text"></ion-input>
     </ion-item>
     <ion-note color="danger" *ngIf="getFormControl('price')?.hasError('pattern') && getFormControl('price')?.touched">
@@ -71,7 +71,7 @@
     <!--*ngIf="getFormControl('price')?.hasError('required') && getFormControl('price')?.touched"-->
 
     <ion-item>
-      <ion-label position="floating">Description</ion-label>
+      <ion-label position="floating">Descripción</ion-label>
       <ion-input formControlName="description" type="text"></ion-input>
     </ion-item>
     <ion-note color="danger" *ngIf="getFormControl('description')?.hasError('required') && getFormControl('description')?.touched">
@@ -79,7 +79,7 @@
     </ion-note>
 
     <ion-item>
-      <ion-label position="floating">Requirements</ion-label>
+      <ion-label position="floating">Requisitos</ion-label>
       <ion-input formControlName="requirements" type="text"></ion-input>
     </ion-item>
     <ion-note color="danger" *ngIf="getFormControl('requirements')?.hasError('required') && getFormControl('requirements')?.touched">

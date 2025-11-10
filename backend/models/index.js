@@ -24,6 +24,10 @@ db.videogames = require("./videogame.model.js")(sequelize, Sequelize);
 
 db.User = require("./user.model.js")(sequelize, Sequelize.DataTypes);
 
+//Lines 28 and 29 are for linking the two tables and being able to show certain lists for specific users
+db.User.hasMany(db.videogames, { foreignKey: 'userId', as: 'videogames'});
+db.videogames.belongsTo(db.User, { foreignKey: 'userId', as: 'user'})
+
 module.exports = db;
 
 /*

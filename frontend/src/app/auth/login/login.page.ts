@@ -50,7 +50,7 @@ export class LoginPage implements OnInit {
       cssClass: 'my-custom-class',
       header: 'Error',
       subHeader: message,
-      message: 'Could not login. Try again.',
+      message: 'No se ha podido registrar, intente otra vez.',
       buttons: ['OK']
     });
 

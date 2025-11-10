@@ -13,7 +13,7 @@ exports.signin = (req, res) => {
     if(!user || !pwd) {
         return res.status(400).json({
             error: true,
-            message: "Username or Password required"
+            message: "Nombre de usuario y contraseña requeridos"
         });
     }
 
@@ -21,7 +21,7 @@ exports.signin = (req, res) => {
     User.findOne({ where: { username: user} })
         .then(data => {
             const result = bcrypt.compareSync(pwd, data.password);
-            if(!result) return res.status(401).send('Password not valid');
+            if(!result) return res.status(401).send('Contraseña no válida');
 
             //generate token
             const token = utils.generateToken(data);

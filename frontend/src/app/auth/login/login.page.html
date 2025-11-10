@@ -3,7 +3,7 @@
     <ion-buttons slot="start">
       <ion-back-button></ion-back-button>
     </ion-buttons>
-    <ion-title>Login</ion-title>
+    <ion-title>Iniciar sesión</ion-title>
   </ion-toolbar>
 </ion-header>
 
@@ -22,25 +22,25 @@
       <ion-row color="primary" class="ion-justify-content-center">
         <ion-col size-md="6" size-lg="5" size-xs="12">
           <div>
-            <h3>Login</h3>
+            <h3>Iniciar sesión</h3>
           </div>
           <div class="ion-text-center">
             <ion-item>
-              <ion-input name="email" type="email" placeholder="your@email.com" ngModel required></ion-input>
+              <ion-input name="email" type="email" placeholder="tu@email.com" ngModel required></ion-input>
             </ion-item>
             <ion-item>
-              <ion-input name="password" type="password" placeholder="Password" ngModel required></ion-input>
+              <ion-input name="password" type="password" placeholder="Contraseña" ngModel required></ion-input>
             </ion-item>
           </div>
           <div class="ion-text-center">
-            <ion-button size="large" type="submit" [disabled]="form.invalid" expand="block">Login</ion-button>
+            <ion-button size="large" type="submit" [disabled]="form.invalid" expand="block">Aceptar</ion-button>
           </div>
         </ion-col>
       </ion-row>
       <ion-row>
         <ion-col>
           <div class="ion-text-center">
-            If you don't have an account, please <a routerLink='/register'>register</a> first!
+            Si no tiene ninguna cuenta, porfavor <a routerLink='/register'>registrarse</a> primero!
           </div>
         </ion-col>
       </ion-row>

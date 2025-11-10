@@ -11,6 +11,9 @@ module.exports = app => {
     //Retrieve all videogames
     router.get("/", auth.isAuthenticated, videogames.findAll);
 
+    //Retrieve a list by a certain user
+    router.get("/my-videogames", auth.isAuthenticated, videogames.findByUser);
+
     //Retrieve a single videogame with id
     router.get("/:id", auth.isAuthenticated, videogames.findOne);
 

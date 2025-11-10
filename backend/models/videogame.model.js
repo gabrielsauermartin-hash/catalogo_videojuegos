@@ -20,6 +20,11 @@ module.exports = (sequelize, Sequelize) => {
         },
         filename: {
             type: Sequelize.STRING
+        },
+        //For link this table to User
+        userId: {
+            type: Sequelize.INTEGER,
+            allowNull: false
         }
     });
 

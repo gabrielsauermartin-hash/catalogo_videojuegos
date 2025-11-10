@@ -24,12 +24,16 @@ export class MyVideogamesPage implements OnInit {
     private storage: Storage) { }
 
   ngOnInit() {
-    this.getAllVideogames();
+    //this.getAllVideogames();
+    //When loading the view, it will load the user's personal list
+    this.loadUserVideogames();
   }
 
   //This is for, when you enter this view, it will re-sync by itself
   ionViewWillEnter(){
-    this.getAllVideogames();
+    //this.getAllVideogames();
+    //When entering the view, it will load the user's personal list
+    this.loadUserVideogames();
   }
 
   async getAllVideogames(){
@@ -65,7 +69,7 @@ export class MyVideogamesPage implements OnInit {
         {text: 'Borrar',
           handler: () => {
             this.videogameService.delete(id, token).subscribe(() => {
-              this.getAllVideogames();
+              this.loadUserVideogames();
             });
           }
         }
@@ -104,6 +108,20 @@ export class MyVideogamesPage implements OnInit {
   logout() {
     this.authService.logout().then(() => {
       this.router.navigateByUrl("/home");
+    });
+  }
+
+  //Loads the videogame list depending on the token the user has
+  async loadUserVideogames(){
+    const token = await this.storage.get('token');
+    this.videogameService.getVideogamesByUser(token).subscribe({
+      next: res => {
+        this.videogames = res;
+        console.log('Videogames of user: ', res);
+      },
+      error: err => {
+        console.error('Error loading user videogames', err);
+      }
     });
   }
 

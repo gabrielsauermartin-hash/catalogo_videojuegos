@@ -33,7 +33,8 @@ exports.create = (req, res) => {
         price: req.body.price,
         description: req.body.description,
         requirements: req.body.requirements,
-        filename: req.file ? req.file.filename : ""
+        filename: req.file ? req.file.filename : "",
+        userId: req.user.id
     };
 
     //Save videogame in the database
@@ -102,18 +103,20 @@ exports.update = async (req, res) => {
         }
 
         // If there is a new file, it deletes the old one
-        if (req.file) {
-            if (videogame.filename) {
-                const oldpath = path.join(__dirname, '../public/images', videogame.filename);
-                fs.unlink(oldpath, (err) => {
-                    if (err) console.error('Error deleting old image: ', err);
-                });
-            }
+        if (req.file && videogame.filename) {
+            const oldpath = path.join(__dirname, '../public/images', videogame.filename);
+
+            fs.unlink(oldpath, (err) => {
+                if (err) console.error(`Error deleting old image ${videogame.filename}:`, err);
+                else console.log(`Old image ${videogame.filename} deleted`);
+            });
+
             req.body.filename = req.file.filename; // save a new name
         }
 
         await Videogame.update(req.body, { where: { id } });
         res.send({ message: "Videogame updated succesfully" });
+
     } catch (err) {
         res.status(500).send({ message: `Error updating videogame with id=${id}` });
     }
@@ -154,7 +157,8 @@ exports.delete = async (req, res) => {
         if (videogame.filename) {
             const filePath = path.join(__dirname, '../public/images', videogame.filename);
             fs.unlink(filePath, (err) => {
-                if (err) console.error('Error deleting image file:', err);
+                if (err) console.error(`Error deleting old image ${videogame.filename}:`, err);
+                else console.log(`Imege ${videogame.filename} deleted`);
             });
         }
 
@@ -185,4 +189,13 @@ exports.delete = async (req, res) => {
         });
     });
     */
+};
+
+//For finding the list for an specific user
+exports.findByUser = (req, res) => {
+    const userId = req.user.id;
+
+    Videogame.findAll({ where: { userId } })
+        .then(data => res.send(data))
+        .catch(err => res.status(500).send({ message: err.message || "Error retrieving videogames"}));
 };
