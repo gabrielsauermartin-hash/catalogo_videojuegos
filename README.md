@@ -17,6 +17,20 @@ y ponerla en práctica, ejecutando backend y frontend respectivamente.
 Los requisitos para poder ejecutar esta aplicación son:
 - Tener MySQL instalado (se usó MySQL Workbench).
 - Usar la versión 21 LTS de Java.
+- Si ya ha tenido este proyecto antes, asegúrese de eliminar y volver a crear una base de datos para que 
+ésta tenga soporte para imágenes.
+- Escribir, dentro del backend, un archivo .env de la siguiente manera:
+
+JWT_SECRET=AVeryStrongPasswordSoThatNobodyCouldBreakIt
+
+MYSQL_DATABASE=db_videogames
+MYSQL_USER=root
+MYSQL_PASSWORD=78495480Ee712004
+MYSQL_ROOT_PASSWORD=78495480Ee712004
+
+DB_HOST=localhost
+
+NODE_ENV=development
 
 <!--
 Requirements for the software and other tools to build, test and push 
@@ -29,6 +43,19 @@ Requirements for the software and other tools to build, test and push
 - Abrirlo en el entorno de desarrollo pertinente (el proyecto se realizó en Visual Studio Code).
 - Localizándose en el frontend, colocar el comando "npm install" para instalar los módulos
 no incluidos en el repositorio de GitHub.
+- Elimine la antigua base de datos sobre videojuegos y vuelva a crearla.
+- Crea un archivo .env con los siguientes datos:
+
+JWT_SECRET=AVeryStrongPasswordSoThatNobodyCouldBreakIt
+
+MYSQL_DATABASE=db_videogames
+MYSQL_USER=root
+MYSQL_PASSWORD=78495480Ee712004
+MYSQL_ROOT_PASSWORD=78495480Ee712004
+
+DB_HOST=localhost
+
+NODE_ENV=development
 
 ### Enlace a Postman
     La colección que contiene los endpoints de este proyecto, se llama Catálogo_Videojuegos:
