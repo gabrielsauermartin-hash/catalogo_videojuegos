@@ -1,3 +1,61 @@
+ion-content {
+  --background: url('../../assets/my-videogames_background.jpg') no-repeat center center / cover fixed;
+  --padding-bottom: 4.5rem;
+}
+
+ion-card {
+  width: 100%;
+  max-width: 450px;
+  margin: 1rem auto;
+  box-shadow: 0 1px 8px 0 #2223a122;
+}
+
+img {
+  width: 100%;
+  max-height: 230px;
+  object-fit: cover;
+  border-radius: 0.5rem;
+}
+
+ion-card-title,
+ion-card-subtitle {
+  word-break: break-word;
+  line-height: 1.2;
+}
+
+ion-card-content {
+  font-size: 1rem;
+}
+
+ion-chip {
+  margin-bottom: 0.5rem;
+}
+
+.price {
+  color: #3880ff;
+  font-weight: 600;
+  margin-top: 0.4rem;
+}
+
+ion-buttons {
+  flex-wrap: wrap;
+  gap: 0.6rem;
+  margin-top: 1rem;
+}
+
+@media (max-width: 768px) {
+  ion-card {
+    max-width: 98vw;
+    font-size: 0.95rem;
+  }
+  img {
+    max-height: 160px;
+  }
+}
+
+
+
+/*
 ion-list {
     --background: transparent !important;
 }
@@ -60,3 +118,4 @@ ion-buttons {
 #container a {
     text-decoration: none;
 }
+*/
