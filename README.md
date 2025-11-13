@@ -59,7 +59,7 @@ NODE_ENV=development
 
 ### Enlace a Postman
     La colección que contiene los endpoints de este proyecto, se llama Catálogo_Videojuegos:
-    https://documenter.getpostman.com/view/48604882/2sB3QKrAFS
+    https://gabrielsauermartin-1686488.postman.co/workspace/GABRIEL-SAUER's-Workspace~88429698-3997-4dec-860f-e341ade25ddc/collection/48604882-0ffa5344-dbe6-45ef-9da8-bb7808002c2f?action=share&creator=48604882
 
 ## Authors
 
